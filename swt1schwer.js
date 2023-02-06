@@ -16,90 +16,76 @@ randomNum = randomNumber(1,3);
 
 
 function hunderterTickets(){
-    let ww = $(".hunderterFeld").width() -20;
-    let wh = $(".hunderterFeld").height() -20;
-    
-    
     let ticket="<div class='hunderterTicket'></div>";    
     numTicketsH = Math.floor(Math.random() * 10); 
 
-    console.log(numTicketsH)
+    console.log(numTicketsH);
     
     for(let x=1;x<=numTicketsH;x++){        
         $(ticket).appendTo(".hunderterFeld");    
     }     
         
-    $(".hunderterTicket").each(function(i){           
-        let posx = Math.round(Math.random() * ww)-40;        
-        let posy = Math.round(Math.random() * wh)-40;        
-        $(this).css("top", posy + "px").css("left", posx + "px");    
-    });
 }
 hunderterTickets();
 
 function zehnerTickets(){
-    let ww = $(".zehnerFeld").width() -20;
-    let wh = $(".zehnerFeld").height() -20;
-    
-    
     let ticket="<div class='zehnerTicket'></div>";  
     if(randomNum == 1){
-        numTicketsZ = Math.floor(Math.random() * 10) + Math.floor(Math.random() * 20);
+        numTicketsZ = Math.floor(Math.random() * 10) + Math.floor(Math.random() * 11);
     }  
     else{
         numTicketsZ= Math.floor(Math.random() * 10); 
     }  
-    console.log(numTicketsZ)
+    console.log(numTicketsZ);
     
     for(let x=1;x<=numTicketsZ;x++){        
-        $(ticket).appendTo(".zehnerFeld");    
+        if(x >10){
+            $(ticket).appendTo(".zehnerFeld2"); 
+        }
+        if(x < 11){
+            $(ticket).appendTo(".zehnerFeld"); 
+
+        }
     }     
         
-    $(".zehnerTicket").each(function(i){           
-        let posx = Math.round(Math.random() * ww)-40;        
-        let posy = Math.round(Math.random() * wh)-40;        
-        $(this).css("top", posy + "px").css("left", posx + "px");    
-    });
+   
 }
 zehnerTickets();
 
 
 function einerTickets(){
-    let ww = $(".einerFeld").width() -20;
-    let wh = $(".einerFeld").height() -20;
-    
-    
     let ticket="<div class='einerTicket'></div>";   
     if(randomNum == 2){
-        numTicketsE = Math.floor(Math.random() * 10) + Math.floor(Math.random() * 20);
+        numTicketsE = Math.floor(Math.random() * 10) + Math.floor(Math.random() * 31);
     }  
     else{
         numTicketsE= Math.floor(Math.random() * 10); 
     }   
      
-    console.log(numTicketsE)
+    console.log(numTicketsE);
     
     for(let x=1;x<=numTicketsE;x++){        
         $(ticket).appendTo(".einerFeld");    
     }     
         
-    $(".einerTicket").each(function(i){           
-        let posx = Math.round(Math.random() * ww)-40;        
-        let posy = Math.round(Math.random() * wh)-40;        
-        $(this).css("top", posy + "px").css("left", posx + "px");    
-    });
 }
 einerTickets();
 
 function refreshBtnClicked() {
     window.location.reload();
 }
-
+resNumber = numTicketsH * 100 + numTicketsZ * 10 + numTicketsE;
+console.log(resNumber);
+if(resNumber > 1000){
+    window.location.reload();
+}
 window.onload = function() {
     console.log(randomNum);
     //document.getElementById('exercise').innerHTML = "Trage die Zahl in die Stellenwerttafel ein. <button class=\"btn btn-info\" onClick=\"playSound()\"><i class=\"bi bi-volume-up\"></i></button>" ;
     document.getElementById('exercise').innerHTML = "Trage die Zahl in die Stellenwerttafel ein. <button class=\"btn\" style=\"background-color:#41b5b5\" onClick=\"playSound()\"><i class=\"bi bi-mic-fill\"></i></button>";
+    
 
+   
 }
 function refreshBtnClicked() {
     window.location.reload();
@@ -113,31 +99,36 @@ function submitBtnClicked() {
 
     document.getElementById("myModal").style.display = "block";
 
-    resNumber = numTicketsH * 100 + numTicketsZ * 10 + numTicketsE;
+   
+    checkTicketE = parseInt(document.getElementById("inputEiner").value || 0); //Input wird als integer wert zurückgegeben
+   
 
-    checkTicketE = parseInt(document.getElementById("inputEiner").value); //Input wird als integer wert zurückgegeben
-    console.log(inputEiner);
+    checkTicketZ = parseInt(document.getElementById("inputZehner").value || 0);
+  
 
-    checkTicketZ = parseInt(document.getElementById("inputZehner").value);
-    console.log(inputZehner);
-
-    checkTicketH = parseInt(document.getElementById("inputHunderter").value);
-    console.log(inputHunderter);
-
+    checkTicketH = parseInt(document.getElementById("inputHunderter").value || 0);
+    
+    
     var result = checkTicketH * 100 + checkTicketZ * 10 + checkTicketE;
    
     if(resNumber === result) {
 
         if(checkTicketE > 9 || checkTicketZ > 9 || checkTicketH > 9){
             solutionText = "<p style=\"font-size: 2rem;\"><strong>Deine Antwort ist zwar richtig, aber es ist noch nicht vollständig gebündelt</strong></p>";
-            document.getElementById("closeBtn").innerHTML = "Nochmal probieren";
             solutionIsCorrect = false;
+            document.getElementById("closeBtn").innerHTML = "Nochmal probieren";
         }
         else{
-            solutionText = "<p style=\"font-size: 2rem;\"><strong>Das ist richtig :)</strong></p>";
+            if(checkTicketE == 0 || checkTicketZ == 0 || checkTicketH == 0){
+                solutionText = "<p style=\"font-size: 2rem;\"><strong>Das ist richtig :) In der Stellenwerttafel muss eine Null aber nicht eingetragen werden.</strong></p>";
+            
+            }
+            else{
+                solutionText = "<p style=\"font-size: 2rem;\"><strong>Das ist richtig :)</strong></p>";
+            }
+            solutionIsCorrect = true;
             document.getElementById("closeBtn").innerHTML = "Nächste Aufgabe!";
 
-            solutionIsCorrect = true;
         }
         
         document.getElementById("solution").innerHTML = solutionText;
@@ -156,8 +147,9 @@ function submitBtnClicked() {
             solutionText3 = "<p>Einerzahl</p>";
         }
         
-        document.getElementById("solution").innerHTML = "<p style=\"font-size: 2rem;\"><strong>Diese Zahlen hast du falsch gemacht:</strong></p> "+ solutionText1 + solutionText2 + solutionText3;
+        document.getElementById("solution").innerHTML = "<p style=\"font-size: 2rem;\"><strong>Deine Antwort ist nicht richtig. Schaue dir die </strong></p> "+ solutionText1 + solutionText2 + solutionText3+ "<p style=\"font-size: 2rem;\"><strong> noch einmal an.</strong></p> ";
         document.getElementById("closeBtn").innerHTML = "Nochmal probieren";
+        
         solutionIsCorrect = false;
     }
 }

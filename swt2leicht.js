@@ -9,10 +9,9 @@ var solutionIsCorrect;
 
 window.onload = function() {
     
-    document.getElementById('exercise').innerHTML = "Tom hat die Stellenwerttafel ausgefüllt: <button class=\"btn\" style=\"background-color:#41b5b5\" onClick=\"playSound()\"><i class=\"bi bi-mic-fill\"></i></button>";
+    document.getElementById('exercise').innerHTML = "Jonas hat die Stellenwerttafel ausgefüllt:<button class=\"btn\" style=\"background-color:#41b5b5\" onClick=\"playSound()\"><i class=\"bi bi-mic-fill\"></i></button>";
 
-
-    randomNumberH =  Math.floor(Math.random() * 9);
+    randomNumberH =  Math.floor(Math.random() * 0);
     document.getElementById('hunderter').innerHTML = randomNumberH;
 
     randomNumberZ =  Math.floor(Math.random() * 9);
@@ -21,7 +20,7 @@ window.onload = function() {
     randomNumberE =  Math.floor(Math.random() * 9);
     document.getElementById('einer').innerHTML = randomNumberE;
 
-    document.getElementById('feedback').innerHTML = "Welche Zahl ist dargestellt?  <input type=\"text\" name=\"result\" id=\"result\"> ";
+    document.getElementById('feedback').innerHTML = "Notiere die Zahl:  <input type=\"text\" name=\"result\" id=\"result\"> ";
 }
 
 
@@ -40,8 +39,9 @@ function submitBtnClicked() {
 
     resNumber = randomNumberH * 100 + randomNumberZ * 10 + randomNumberE * 1;
 
-    var result = parseInt(document.getElementById("result").value); //Input wird als integer wert zurückgegeben
-    //////////////////////////////////////////7
+    var result = parseInt(document.getElementById("result").value) || ""; //Input wird als integer wert zurückgegeben
+    console.log(result);
+
     console.log(typeof result);
     function digit(numberIn, stelle){
         return Math.floor(numberIn%Math.pow(10, stelle+1)/Math.pow(10, stelle))
@@ -58,11 +58,25 @@ function submitBtnClicked() {
     /////////////////////////////////////////////
 
     if(resNumber === result) {
-        solutionText = "Das ist richtig :)";
-        document.getElementById("closeBtn").innerHTML = "Nächste Aufgabe!";
+        if(checkHunderter == 0){
+            solutionText = "Deine Antwort ist nicht richtig. Eine Null darf in der Stellenwerttafel geschrieben werden, aber aber nicht als erste Ziffer.";
+            solutionIsCorrect = false;
+            document.getElementById("closeBtn").innerHTML = "Nochmal probieren";
 
-        solutionIsCorrect = true;
+        }
+        else if(checkHunderter == NaN){
+            solutionIsCorrect = true;
+            console.log("passt");
+        }
+        else {
+            solutionText = "Das ist richtig :)";
+            document.getElementById("closeBtn").innerHTML = "Nächste Aufgabe!";
+    
+            solutionIsCorrect = true;
+        }
+
         document.getElementById("solution").innerHTML = solutionText;
+
 
     } else {
         if(randomNumberH !== checkHunderter ){

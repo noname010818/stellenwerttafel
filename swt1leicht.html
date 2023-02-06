@@ -22,6 +22,7 @@
       crossorigin="anonymous"
     />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css">
+
     <!--Bootstrap ende-->
 
     <link
@@ -55,8 +56,8 @@
                   Stellenwerttafel 1
                 </a>
                 <ul class="dropdown-menu">
-                  <li><a class="dropdown-item" href="swt1leicht.html">Leicht</a></li>
-                  <li><a class="dropdown-item" href="swt1schwer.html">Schwierig</a></li>
+                  <li><a class="dropdown-item" href="swt1leicht.html">Variante A</a></li>
+                  <li><a class="dropdown-item" href="swt1schwer.html">Variante B</a></li>
                 </ul>
               </li>
             </li>
@@ -66,28 +67,30 @@
                   Stellenwerttafel 2
                 </a>
                 <ul class="dropdown-menu">
-                  <li><a class="dropdown-item" href="swt2leicht.html">Leicht</a></li>
-                  <li><a class="dropdown-item" href="swt2schwer.html">Schwierig</a></li>
+                  <li><a class="dropdown-item" href="swt2leicht.html">Variante A</a></li>
+                  <li><a class="dropdown-item" href="swt2schwer.html">Variante B</a></li>
                 </ul>
               </li>
             </li>
           </ul>
         </div>
         <span class="navbar-text">
-          <p class="text-dark">Stellenwerttafel 1 (schwer)</p>
+          <p class="text-dark">Stellenwerttafel 1 (Variante A)</p>
         </span>
       </div>
     </nav>
-    <div class="container text-center">
       <h2 id="exercise"></h2>
-      <div class="hunderterFeld">
+      <div class="dienesFeld">
+        <div class="hunderterFeld" >
+        </div>
+        <div class="zehnerFeld">
+        </div>
+        <div class="zehnerFeld2">
+        </div>
+        <div class="einerFeld">
+        </div>
       </div>
-      <div class="zehnerFeld">
-      </div>
-      <div class="einerFeld">
-      </div>
-    </div>
-    <div class="container text-center">
+    <div class="container" id="feld">
       <div class="row" id="count-row">
         <div class="container-fluid">
           <table class="table table-bordered" style="margin-top: 0%;">
@@ -99,7 +102,7 @@
               </tr>
             </thead>
             <tr>
-              <td id="hunderter"><input type="text" name="result" id="inputHunderter" autocomplete="off"></td>
+              <td id="hunderter"><input type="text" name="result" id="inputHunderter" value="" autocomplete="off"></td>
               <td id="zehner"><input type="text" name="result" id="inputZehner" autocomplete="off"></td>
               <td id="einer"><input type="text" name="result" id="inputEiner" autocomplete="off"></td>
             </tr>
@@ -109,15 +112,8 @@
     </div>
   </div>
   <div class="container text-center">
-    <button
-      id="submitBtn"
-      type="button"
-      class="btn btn-success btn-lg left-icon-holder"
-      onclick="submitBtnClicked()"
-    >
-    <i class="bi bi-check-all"></i>
-      Abgeben!
-    </button>
+    <button id="submitBtn" type="button" class="btn btn-success btn-lg left-icon-holder" onclick="submitBtnClicked()">
+    <i class="bi bi-check-all"></i>Abgeben!</button>
     <button class="btn btn-primary btn-lg left-icon-holder" onclick="refreshBtnClicked()"><i class="bi bi-arrow-clockwise"></i>Neue Aufgabe</button>
   </div>
 <div id="myModal" class="modal">
@@ -128,5 +124,5 @@
   </div>
 </div>
   </body>
-  <script type="text/javascript" src="swt1schwer.js"></script>
+  <script type="text/javascript" src="swt1leicht.js"></script>
 </html>

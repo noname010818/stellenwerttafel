@@ -10,7 +10,7 @@ var solutionIsCorrect;
 
 window.onload = function() {
     
-    document.getElementById('exercise').innerHTML = "Tim hat die Stellenwerttafel ausgefüllt: <button class=\"btn\" style=\"background-color:#41b5b5\" onClick=\"playSound()\"><i class=\"bi bi-mic-fill\"></i></button>";
+    document.getElementById('exercise').innerHTML = "Merve hat die Stellenwerttafel ausgefüllt: <button class=\"btn\" style=\"background-color:#41b5b5\" onClick=\"playSound()\"><i class=\"bi bi-mic-fill\"></i></button>";
 
     function randomNumber(min, max) {
         return Math.floor(Math.random() * (max - min) + min);
@@ -19,7 +19,7 @@ window.onload = function() {
     randomNum = randomNumber(1,3);
 
     if(randomNum == 1){
-        randomNumberH =  Math.floor(Math.random() * 9);
+        randomNumberH =  Math.floor(Math.random() * 0);
         document.getElementById('hunderter').innerHTML = randomNumberH;
     
         randomNumberZ =  Math.floor(Math.random() * 9 * 10 ) + Math.floor(Math.random() * 9);
@@ -40,7 +40,7 @@ window.onload = function() {
         document.getElementById('einer').innerHTML = randomNumberE;
     }
 
-    document.getElementById('feedback').innerHTML = "Welche Zahl ist dargestellt?<input type=\"text\" name=\"result\" id=\"result\"> ";
+    document.getElementById('feedback').innerHTML = "Notiere die Zahl: <input type=\"text\" name=\"result\" id=\"result\"> ";
 }
 
 
@@ -86,10 +86,19 @@ function submitBtnClicked() {
     var checkEiner = inputEiner();
 
     if(resNumber === result) {
-        solutionText = "<p style=\"font-size: 2rem;\"><strong>Das ist richtig :)</strong></p>";
-        document.getElementById("closeBtn").innerHTML = "Nächste Aufgabe!";
+        if(checkHunderter == 0 || checkHunderter == 0 && checkZehner == 0){
+            solutionText = "Deine Antwort ist nicht richtig. Eine Null darf in der Stellenwerttafel geschrieben werden, aber aber nicht als erste Ziffer.";
+            solutionIsCorrect = false;
+            document.getElementById("closeBtn").innerHTML = "Nochmal probieren";
 
-        solutionIsCorrect = true;
+        }
+        else{
+            solutionText = "<p style=\"font-size: 2rem;\"><strong>Das ist richtig :)</strong></p>";
+            document.getElementById("closeBtn").innerHTML = "Nächste Aufgabe!";
+    
+            solutionIsCorrect = true;
+        }
+        
         document.getElementById("solution").innerHTML = solutionText;
 
     } else {
